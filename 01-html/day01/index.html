@@ -9,6 +9,88 @@
   </head>
   <!-- 表示コンテンツ -->
   <body>
-    <h1>POKIZON</h1>
+    <!-- ヘッダー -->
+    <div class="header">
+      <div class="header-top">
+        <!-- ロゴ -->
+        <h1 class="logo" aria-label="POKIZON">
+          <span class="logo__mark" aria-hidden="true">P</span>
+          <span class="logo__name">POKIZON</span>
+        </h1>
+
+        <div class="header-actions">
+          <!-- ログイン -->
+          <a href="#" class="btn-login">ログイン</a>
+          <!-- カート -->
+          <a href="#" class="btn-cart">カート</a>
+        </div>
+      </div>
+
+      <form class="search" action="#" method="get">
+        <label class="visually-hidden" for="site-search">商品を検索</label>
+        <input
+          id="site-search"
+          type="search"
+          name="q"
+          placeholder="商品を検索"
+        />
+        <button type="submit">検索</button>
+      </form>
+    </div>
+
+    <!-- ナビゲーション -->
+    <div class="nav">
+      <!-- 商品カテゴリー -->
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#">ホーム</a></li>
+          <li><a href="#">食品</a></li>
+          <li><a href="#">インテリア</a></li>
+          <li><a href="#">衣類</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- バナーやおすすめ商品の案内 -->
+    <!-- <div class="banner"></div> -->
+
+    <!-- 商品一覧 -->
+    <section class="product">
+      <article class="product-card">
+        <img src="images/product.webp" alt="商品の画像" />
+        <h2>プレゼント</h2>
+        <p class="product-price">¥100</p>
+        <a class="product-button" href="#">商品を見る</a>
+      </article>
+      <article class="product-card">
+        <img src="images/product.webp" alt="商品の画像" />
+        <h2>プレゼント</h2>
+        <p class="product-price">¥100</p>
+        <a class="product-button" href="#">商品を見る</a>
+      </article>
+      <article class="product-card">
+        <img src="images/product.webp" alt="商品の画像" />
+        <h2>プレゼント</h2>
+        <p class="product-price">¥100</p>
+        <a class="product-button" href="#">商品を見る</a>
+      </article>
+      <article class="product-card">
+        <img src="images/product.webp" alt="商品の画像" />
+        <h2>プレゼント</h2>
+        <p class="product-price">¥100</p>
+        <a class="product-button" href="#">商品を見る</a>
+      </article>
+      <article class="product-card">
+        <img src="images/product.webp" alt="商品の画像" />
+        <h2>プレゼント</h2>
+        <p class="product-price">¥100</p>
+        <a class="product-button" href="#">商品を見る</a>
+      </article>
+    </section>
+
+    <!-- フッター -->
+    <div class="footer">
+      <!-- 問い合わせ・配送・返品案内 -->
+    </div>
   </body>
 </html>
