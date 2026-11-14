@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>テストページ</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <!-- 表示コンテンツ -->
   <body>
@@ -20,9 +21,20 @@
 
         <div class="header-actions">
           <!-- ログイン -->
-          <a href="#" class="btn-login">ログイン</a>
+          <!-- <a href="#" class="btn-login">ログイン</a> -->
+          <button
+            onclick="alertPush(this.value)"
+            class="btn-login"
+            value="login"
+          >
+            ログイン
+          </button>
           <!-- カート -->
-          <a href="#" class="btn-cart">カート</a>
+          <!-- <a href="#" class="btn-cart">カート</a> -->
+          <button onclick="alertPush(this.value)" class="btn-cart" value="cart">
+            カート
+          </button>
+          <button type="button" id="showDialog" class="btn-add">追加</button>
         </div>
       </div>
 
@@ -55,7 +67,7 @@
     <!-- <div class="banner"></div> -->
 
     <!-- 商品一覧 -->
-    <section class="product">
+    <section class="product" id="productList">
       <article class="product-card">
         <img src="images/product.webp" alt="商品の画像" />
         <h2>プレゼント</h2>
@@ -94,3 +106,27 @@
     </div>
   </body>
 </html>
+
+<dialog id="addDialog" aria-labelledby="dialogTitle">
+  <h2 id="dialogTitle">商品の詳細入力</h2>
+  <form id="productDetail">
+    <label for="product-name">商品名</label>
+    <input
+      id="product-name"
+      name="productName"
+      type="text"
+      placeholder="商品名"
+      required
+    />
+    <input
+      id="product-price"
+      name="productPrice"
+      type="number"
+      min="0"
+      placeholder="商品価格"
+      required
+    />
+    <button type="submit">追加</button>
+    <button type="button" id="closeDialog">閉じる</button>
+  </form>
+</dialog>

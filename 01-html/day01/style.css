@@ -61,7 +61,8 @@ body {
 }
 
 .btn-login,
-.btn-cart {
+.btn-cart,
+.btn-add {
   display: inline-block;
   padding: 9px 14px;
   border: 1px solid #f59e0b;
@@ -78,7 +79,9 @@ body {
 .btn-login:hover,
 .btn-cart:hover,
 .btn-login:focus-visible,
-.btn-cart:focus-visible {
+.btn-cart:focus-visible,
+.btn-add:hover,
+.btn-add:focus-visible {
   background: #f59e0b;
   color: #fff;
 }
@@ -237,6 +240,68 @@ body {
 
 .product-button:hover,
 .product-button:focus-visible {
+  background: #1d4ed8;
+}
+
+/* ダイアログ本体 */
+#appDialog {
+  width: min(90vw, 420px);
+  padding: 24px;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  color: #1f2937;
+  box-shadow: 0 20px 60px rgb(15 23 42 / 25%);
+}
+
+#addDialog::backdrop {
+  background: rgb(15 23 42 / 55%);
+  backdrop-filter: blur(3px);
+}
+
+#addDialog h2 {
+  margin: 0 0 20px;
+  color: #172554;
+  font-size: 22px;
+}
+
+/* 入力欄 */
+#productDetail {
+  display: grid;
+  gap: 12px;
+}
+
+#productDetail label {
+  font-weight: 700;
+}
+
+#productDetail input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+#productDetail input:focus-visible {
+  outline: 3px solid rgb(37 99 235 / 20%);
+  border-color: #2563eb;
+}
+
+/* ダイアログ内のボタン */
+#productDetail button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#productDetail button:hover,
+#productDetail button:focus-visible {
   background: #1d4ed8;
 }
 
