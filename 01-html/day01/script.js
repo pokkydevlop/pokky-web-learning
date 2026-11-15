@@ -6,6 +6,10 @@
 //   alert("カートが押されました");
 // };
 
+/**
+ * ログイン・カートなどのボタンに応じたアラートを表示します。
+ * @param {string} value ボタンの種類（"login" または "cart"）
+ */
 const alertPush = (value) => {
   switch (value) {
     case "login":
@@ -66,7 +70,9 @@ productForm.addEventListener("submit", (event) => {
   dialog.close();
 });
 
-<summary>カードの追加（表示系）</summary>;
+/**
+ * 商品を生じするための設定
+ */
 function renderProducts() {
   productList.replaceChildren();
 
