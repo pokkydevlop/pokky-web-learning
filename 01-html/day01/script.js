@@ -1,3 +1,4 @@
+﻿// Show a message for the selected header action.
 const alertPush = (value) => {
   const messages = {
     login: "ログインが押されました",
@@ -8,18 +9,22 @@ const alertPush = (value) => {
 };
 
 // Cache the dialog and form elements used by both add and edit flows.
+const dialog = document.querySelector("#productDialog");
 const openDialogButton = document.querySelector("#showDialog");
 const closeDialogButton = document.querySelector("#closeDialog");
 const productForm = document.querySelector("#productDetail");
 const productList = document.querySelector("#productList");
 const dialogTitle = document.querySelector("#dialogTitle");
 const saveProductButton = document.querySelector("#saveProductButton");
+
+// Store products and the current UI state.
 const products = [];
 let nextProductId = 1;
 let editingProductId = null;
 let currentCategory = "all";
 
 // Open a blank form for a new product.
+openDialogButton.addEventListener("click", () => {
   editingProductId = null;
   productForm.reset();
   dialogTitle.textContent = "商品の追加";
@@ -28,10 +33,12 @@ let currentCategory = "all";
 });
 
 // Close the shared add/edit dialog.
+closeDialogButton.addEventListener("click", () => {
   dialog.close();
 });
 
 // Fill the shared form with the selected product before editing.
+function openEditDialog(productId) {
   const product = products.find((item) => item.id === productId);
   if (!product) return;
 
@@ -45,6 +52,7 @@ let currentCategory = "all";
 }
 
 // Add a product or update the product currently being edited.
+productForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const formData = new FormData(productForm);
@@ -71,11 +79,11 @@ let currentCategory = "all";
 });
 
 // Render only products that match the selected navigation category.
+function renderProducts() {
   productList.replaceChildren();
-  const visibleProducts =
-    currentCategory === "all"
-      ? products
-      : products.filter((product) => product.property === currentCategory);
+  const visibleProducts = currentCategory === "all"
+    ? products
+    : products.filter((product) => product.property === currentCategory);
 
   visibleProducts.forEach((product) => {
     const card = document.createElement("article");
@@ -104,6 +112,7 @@ let currentCategory = "all";
 }
 
 // Keep the selected navigation item visually and accessibly marked.
+const navLinks = document.querySelectorAll(".nav-list a");
 function updateActiveNav(selectedLink) {
   navLinks.forEach((link) => {
     const isActive = link === selectedLink;
