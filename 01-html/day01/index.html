@@ -34,6 +34,7 @@
           <button onclick="alertPush(this.value)" class="btn-cart" value="cart">
             カート
           </button>
+          <!-- 商品の追加 -->
           <button type="button" id="showDialog" class="btn-add">追加</button>
         </div>
       </div>
@@ -67,45 +68,12 @@
     <!-- <div class="banner"></div> -->
 
     <!-- 商品一覧 -->
-    <section class="product" id="productList">
-      <article class="product-card">
-        <img src="images/product.webp" alt="商品の画像" />
-        <h2>プレゼント</h2>
-        <p class="product-price">¥100</p>
-        <a class="product-button" href="#">商品を見る</a>
-      </article>
-      <article class="product-card">
-        <img src="images/product.webp" alt="商品の画像" />
-        <h2>プレゼント</h2>
-        <p class="product-price">¥100</p>
-        <a class="product-button" href="#">商品を見る</a>
-      </article>
-      <article class="product-card">
-        <img src="images/product.webp" alt="商品の画像" />
-        <h2>プレゼント</h2>
-        <p class="product-price">¥100</p>
-        <a class="product-button" href="#">商品を見る</a>
-      </article>
-      <article class="product-card">
-        <img src="images/product.webp" alt="商品の画像" />
-        <h2>プレゼント</h2>
-        <p class="product-price">¥100</p>
-        <a class="product-button" href="#">商品を見る</a>
-      </article>
-      <article class="product-card">
-        <img src="images/product.webp" alt="商品の画像" />
-        <h2>プレゼント</h2>
-        <p class="product-price">¥100</p>
-        <a class="product-button" href="#">商品を見る</a>
-      </article>
-    </section>
+    <section class="product" id="productList"></section>
 
     <!-- フッター -->
     <div class="footer">
       <!-- 問い合わせ・配送・返品案内 -->
     </div>
-  </body>
-</html>
 
     <dialog id="addDialog" aria-labelledby="dialogTitle">
       <h2 id="dialogTitle">商品の詳細入力</h2>

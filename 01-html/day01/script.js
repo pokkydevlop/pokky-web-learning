@@ -53,6 +53,7 @@ productForm.addEventListener("submit", (event) => {
   const formData = new FormData(productForm);
   const name = formData.get("productName").trim();
   const price = Number(formData.get("productPrice"));
+  const property = formData.get("productProperty");
 
   if (!name || price < 0) return;
 
@@ -60,6 +61,7 @@ productForm.addEventListener("submit", (event) => {
     id: nextProductId,
     name,
     price,
+    property,
   };
 
   nextProductId += 1;
@@ -87,7 +89,12 @@ function renderProducts() {
     price.className = "product-price";
     price.textContent = `¥${product.price.toLocaleString("ja-JP")}`;
 
-    card.append(name, price);
+    const detail = document.createElement("a");
+    detail.className = "product-button";
+    detail.href = "#";
+    detail.textContent = "商品を見る";
+
+    card.append(name, price, detail);
     productList.append(card);
   });
 }
