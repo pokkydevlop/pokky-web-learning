@@ -56,10 +56,10 @@
       <!-- 商品カテゴリー -->
       <nav>
         <ul class="nav-list">
-          <li><a href="#">ホーム</a></li>
-          <li><a href="#">食品</a></li>
-          <li><a href="#">インテリア</a></li>
-          <li><a href="#">衣類</a></li>
+          <li><a href="#" data-category="all">ホーム</a></li>
+          <li><a href="#" data-category="food">食品</a></li>
+          <li><a href="#" data-category="furniture">インテリア</a></li>
+          <li><a href="#" data-category="wear">衣類</a></li>
         </ul>
       </nav>
     </div>
@@ -75,8 +75,8 @@
       <!-- 問い合わせ・配送・返品案内 -->
     </div>
 
-    <dialog id="addDialog" aria-labelledby="dialogTitle">
-      <h2 id="dialogTitle">商品の詳細入力</h2>
+    <dialog id="productDialog" aria-labelledby="dialogTitle">
+      <h2 id="dialogTitle">商品の追加</h2>
       <form id="productDetail">
         <label for="product-name">商品名</label>
         <input
@@ -102,7 +102,7 @@
           <option value="furniture">インテリア</option>
           <option value="wear">衣類</option>
         </select>
-        <button type="submit">追加</button>
+        <button type="submit" id="saveProductButton">追加</button>
         <button type="button" id="closeDialog">閉じる</button>
       </form>
     </dialog>

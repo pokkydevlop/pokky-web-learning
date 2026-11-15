@@ -180,6 +180,12 @@ body {
   box-shadow: 0 2px #2563eb;
 }
 
+.nav-list a.is-active {
+  color: #1d4ed8;
+  font-weight: 700;
+  box-shadow: 0 2px #2563eb;
+}
+
 .product {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -383,4 +389,73 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
   }
+}
+
+/* 商品の追加・編集ダイアログ */
+#productDialog {
+  width: min(90vw, 420px);
+  padding: 24px;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  color: #1f2937;
+  box-shadow: 0 20px 60px rgb(15 23 42 / 25%);
+}
+
+#productDialog::backdrop {
+  background: rgb(15 23 42 / 55%);
+  backdrop-filter: blur(3px);
+}
+
+#productDialog h2 {
+  margin: 0 0 20px;
+  color: #172554;
+  font-size: 22px;
+}
+
+#productDetail button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#saveProductButton {
+  background: #2563eb;
+  color: #fff;
+}
+
+#saveProductButton:hover,
+#saveProductButton:focus-visible {
+  background: #1d4ed8;
+}
+
+#closeDialog {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #334155;
+}
+
+#closeDialog:hover,
+#closeDialog:focus-visible {
+  background: #f1f5f9;
+}
+
+.product-card button {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #334155;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.product-card button:hover,
+.product-card button:focus-visible {
+  border-color: #2563eb;
+  color: #2563eb;
 }

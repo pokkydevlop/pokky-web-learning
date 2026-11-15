@@ -1,84 +1,83 @@
-// const alertLogin = () => {
-//   alert("ログインが押されました");
-// };
-
-// const alertCart = () => {
-//   alert("カートが押されました");
-// };
-
-/**
- * ログイン・カートなどのボタンに応じたアラートを表示します。
- * @param {string} value ボタンの種類（"login" または "cart"）
- */
 const alertPush = (value) => {
-  switch (value) {
-    case "login":
-      alert("ログインが押されました");
-      break;
-    case "cart":
-      alert("カートが押されました");
-      break;
-    case "search":
-      alert("検索が押されました");
-      break;
-    default:
-      alert("未定義のボタンが押されました");
-  }
+  const messages = {
+    login: "ログインが押されました",
+    cart: "カートが押されました",
+    search: "検索が押されました",
+  };
+  alert(messages[value] ?? "未定義のボタンが押されました");
 };
 
-// ダイアログ
-const dialog = document.querySelector("#addDialog");
+// Cache the dialog and form elements used by both add and edit flows.
 const openDialogButton = document.querySelector("#showDialog");
 const closeDialogButton = document.querySelector("#closeDialog");
+const productForm = document.querySelector("#productDetail");
+const productList = document.querySelector("#productList");
+const dialogTitle = document.querySelector("#dialogTitle");
+const saveProductButton = document.querySelector("#saveProductButton");
+const products = [];
+let nextProductId = 1;
+let editingProductId = null;
+let currentCategory = "all";
 
-openDialogButton.addEventListener("click", () => {
+// Open a blank form for a new product.
+  editingProductId = null;
+  productForm.reset();
+  dialogTitle.textContent = "商品の追加";
+  saveProductButton.textContent = "追加";
   dialog.showModal();
 });
 
-closeDialogButton.addEventListener("click", () => {
+// Close the shared add/edit dialog.
   dialog.close();
 });
 
-// 商品の配列
-const products = [];
-let nextProductId = 1;
+// Fill the shared form with the selected product before editing.
+  const product = products.find((item) => item.id === productId);
+  if (!product) return;
 
-const productForm = document.querySelector("#productDetail");
-const productList = document.querySelector("#productList");
+  editingProductId = productId;
+  productForm.elements.productName.value = product.name;
+  productForm.elements.productPrice.value = product.price;
+  productForm.elements.productProperty.value = product.property;
+  dialogTitle.textContent = "商品の編集";
+  saveProductButton.textContent = "更新";
+  dialog.showModal();
+}
 
-// 配列に商品を追加
-productForm.addEventListener("submit", (event) => {
+// Add a product or update the product currently being edited.
   event.preventDefault();
 
   const formData = new FormData(productForm);
   const name = formData.get("productName").trim();
   const price = Number(formData.get("productPrice"));
   const property = formData.get("productProperty");
+  if (!name || price < 0 || !property) return;
 
-  if (!name || price < 0) return;
-
-  const product = {
-    id: nextProductId,
-    name,
-    price,
-    property,
-  };
-
-  nextProductId += 1;
-  products.push(product);
+  if (editingProductId !== null) {
+    const product = products.find((item) => item.id === editingProductId);
+    if (!product) return;
+    product.name = name;
+    product.price = price;
+    product.property = property;
+  } else {
+    products.push({ id: nextProductId, name, price, property });
+    nextProductId += 1;
+  }
 
   renderProducts();
   productForm.reset();
+  editingProductId = null;
   dialog.close();
 });
 
-/**
- * 商品を生じするための設定
- */
-function renderProducts() {
+// Render only products that match the selected navigation category.
   productList.replaceChildren();
+  const visibleProducts =
+    currentCategory === "all"
+      ? products
+      : products.filter((product) => product.property === currentCategory);
 
-  products.forEach((product) => {
+  visibleProducts.forEach((product) => {
     const card = document.createElement("article");
     card.className = "product-card";
 
@@ -94,7 +93,38 @@ function renderProducts() {
     detail.href = "#";
     detail.textContent = "商品を見る";
 
-    card.append(name, price, detail);
+    const edit = document.createElement("button");
+    edit.type = "button";
+    edit.textContent = "編集";
+    edit.addEventListener("click", () => openEditDialog(product.id));
+
+    card.append(name, price, detail, edit);
     productList.append(card);
   });
 }
+
+// Keep the selected navigation item visually and accessibly marked.
+function updateActiveNav(selectedLink) {
+  navLinks.forEach((link) => {
+    const isActive = link === selectedLink;
+    link.classList.toggle("is-active", isActive);
+    if (isActive) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
+navLinks.forEach((link) => {
+  if (link.dataset.category === currentCategory) updateActiveNav(link);
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    currentCategory = link.dataset.category;
+    updateActiveNav(link);
+    renderProducts();
+  });
+});
+
+// Show the initial product list on page load.
+renderProducts();
