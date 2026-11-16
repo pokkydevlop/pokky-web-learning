@@ -19,6 +19,8 @@ const saveProductButton = document.querySelector("#saveProductButton");
 
 // Store products and the current UI state.
 const products = [];
+const cart = [];
+const cartCount = document.querySelector("#cartCount");
 let nextProductId = 1;
 let editingProductId = null;
 let deletingProductId = null;
@@ -105,6 +107,11 @@ productForm.addEventListener("submit", (event) => {
   dialog.close();
 });
 
+function inCart(productId) {
+  cart.push(productId);
+  cartCount.textContent = cart.length;
+}
+
 // Render only products that match the selected navigation category.
 function renderProducts() {
   productList.replaceChildren();
@@ -124,10 +131,11 @@ function renderProducts() {
     price.className = "product-price";
     price.textContent = `¥${product.price.toLocaleString("ja-JP")}`;
 
-    const detail = document.createElement("a");
+    const detail = document.createElement("button");
+    detail.type = "button";
     detail.className = "product-button";
-    detail.href = "#";
-    detail.textContent = "商品を見る";
+    detail.textContent = "カートに追加";
+    detail.addEventListener("click", () => inCart(product.id));
 
     const edit = document.createElement("button");
     edit.type = "button";
