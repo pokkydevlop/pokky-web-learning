@@ -1,17 +1,44 @@
-/* 共通設定 */
-* {
+/* Base */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light;
+  font-family: Arial, "Noto Sans JP", sans-serif;
+  color: #1f2937;
+  background: #f6f8fc;
+}
+
 body {
+  min-width: 320px;
+  min-height: 100vh;
   margin: 0;
   padding: 24px clamp(16px, 4vw, 48px);
   background: #f6f8fc;
-  color: #1f2937;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ヘッダー */
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgb(37 99 235 / 30%);
+  outline-offset: 2px;
+}
+
+/* Header */
 .header {
   max-width: 1200px;
   margin: 0 auto;
@@ -20,8 +47,8 @@ body {
 
 .header-top {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
 }
 
@@ -57,42 +84,34 @@ body {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .btn-login,
 .btn-cart,
 .btn-add {
-  display: inline-block;
   padding: 9px 14px;
   border: 1px solid #f59e0b;
   border-radius: 8px;
   background: #fff7e8;
   color: #92400e;
   font-weight: 700;
-  text-decoration: none;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-login:hover,
 .btn-cart:hover,
-.btn-login:focus-visible,
-.btn-cart:focus-visible,
-.btn-add:hover,
-.btn-add:focus-visible {
+.btn-add:hover {
   background: #f59e0b;
   color: #fff;
 }
 
-/* 検索フォーム */
+/* Search */
 .search {
   display: flex;
-  justify-content: center;
-  gap: 8px;
   width: min(100%, 560px);
   margin: 20px auto 0;
+  gap: 8px;
 }
 
 .search input {
@@ -102,11 +121,11 @@ body {
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   background: #fff;
-  font: inherit;
 }
 
-.search input:focus-visible {
-  outline: 3px solid rgb(37 99 235 / 25%);
+.search input:focus-visible,
+#productDetail input:focus-visible,
+#productDetail select:focus-visible {
   border-color: #2563eb;
 }
 
@@ -116,13 +135,10 @@ body {
   border-radius: 8px;
   background: #2563eb;
   color: #fff;
-  font: inherit;
   font-weight: 700;
-  cursor: pointer;
 }
 
-.search button:hover,
-.search button:focus-visible {
+.search button:hover {
   background: #1d4ed8;
 }
 
@@ -138,7 +154,7 @@ body {
   border: 0;
 }
 
-/* ナビゲーション */
+/* Category navigation */
 .nav {
   width: min(100%, 1000px);
   margin: 0 auto;
@@ -148,8 +164,8 @@ body {
 
 .nav-list {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: clamp(12px, 3vw, 32px);
   margin: 0;
   padding: 14px 8px;
@@ -175,59 +191,53 @@ body {
 }
 
 .nav-list a:hover,
-.nav-list a:focus-visible {
-  color: #2563eb;
+.nav-list a.is-active {
+  color: #1d4ed8;
   box-shadow: 0 2px #2563eb;
 }
 
 .nav-list a.is-active {
-  color: #1d4ed8;
   font-weight: 700;
-  box-shadow: 0 2px #2563eb;
 }
 
+/* Product cards */
 .product {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
   gap: 24px;
   max-width: 1200px;
+  min-height: 160px;
   margin: 32px auto;
 }
 
 .product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   overflow: hidden;
   padding: 16px;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 4px 14px rgb(15 23 42 / 6%);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: 0 10px 24px rgb(15 23 42 / 12%);
 }
 
-.product-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 8px;
-  background: #f1f5f9;
-}
-
 .product-card h2 {
-  margin: 14px 0 8px;
+  margin: 0;
   color: #1e293b;
   font-size: 16px;
+  overflow-wrap: anywhere;
 }
 
 .product-price {
-  margin: 0 0 14px;
+  margin: 0 0 4px;
   color: #b45309;
   font-size: 18px;
   font-weight: 700;
@@ -242,158 +252,45 @@ body {
   font-weight: 700;
   text-align: center;
   text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
-.product-button:hover,
-.product-button:focus-visible {
+.product-button:hover {
   background: #1d4ed8;
 }
 
-/* ダイアログ本体 */
-#appDialog {
-  width: min(90vw, 420px);
-  padding: 24px;
-  border: 0;
-  border-radius: 16px;
-  background: #fff;
-  color: #1f2937;
-  box-shadow: 0 20px 60px rgb(15 23 42 / 25%);
-}
-
-#addDialog::backdrop {
-  background: rgb(15 23 42 / 55%);
-  backdrop-filter: blur(3px);
-}
-
-#addDialog h2 {
-  margin: 0 0 20px;
-  color: #172554;
-  font-size: 22px;
-}
-
-/* 入力欄 */
-#productDetail {
-  display: grid;
-  gap: 12px;
-}
-
-#productDetail label {
-  font-weight: 700;
-}
-
-#productDetail input {
-  width: 100%;
-  padding: 11px 12px;
+.product-card button {
+  padding: 9px 10px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  font: inherit;
+  background: #fff;
+  color: #334155;
+  font-weight: 700;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-#productDetail input:focus-visible {
-  outline: 3px solid rgb(37 99 235 / 20%);
+.product-card button:hover {
   border-color: #2563eb;
+  color: #1d4ed8;
 }
 
-/* ダイアログ内のボタン */
-#productDetail button {
-  padding: 10px 14px;
-  border: 0;
-  border-radius: 8px;
-  background: #2563eb;
+/* The last card button is the delete action (see card.append in script.js). */
+.product-card button:last-child {
+  border-color: #fecaca;
+  background: #fff;
+  color: #b91c1c;
+}
+
+.product-card button:last-child:hover {
+  border-color: #dc2626;
+  background: #dc2626;
   color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
 }
 
-#productDetail button:hover,
-#productDetail button:focus-visible {
-  background: #1d4ed8;
-}
-
-/* select-menu */
-#productDetail select {
-  width: 100%;
-  padding: 11px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #fff;
-  color: #1f2937;
-  font: inherit;
-}
-
-#productDetail select:focus-visible {
-  outline: 3px solid rgb(37 99 235 / 20%);
-  border-color: #2563eb;
-}
-
-/* 小さい画面 */
-@media (max-width: 520px) {
-  body {
-    padding: 12px 16px;
-  }
-
-  .header {
-    padding-top: 12px;
-  }
-
-  .header-top {
-    gap: 12px;
-  }
-
-  .logo {
-    gap: 7px;
-    font-size: clamp(20px, 6vw, 28px);
-  }
-
-  .logo__mark {
-    width: 36px;
-    height: 36px;
-    flex-basis: 36px;
-    border-radius: 11px;
-    font-size: 22px;
-  }
-
-  .header-actions {
-    gap: 6px;
-  }
-
-  .btn-login,
-  .btn-cart {
-    padding: 8px 9px;
-    font-size: 14px;
-  }
-
-  .nav {
-    overflow-x: auto;
-  }
-
-  .nav-list {
-    justify-content: flex-start;
-    width: max-content;
-    min-width: 100%;
-    gap: 14px;
-  }
-
-  .nav-list li {
-    gap: 14px;
-  }
-
-  .products {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 900px) {
-  .products {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-}
-
-/* 商品の追加・編集ダイアログ */
+/* Add/edit dialog */
 #productDialog {
   width: min(90vw, 420px);
+  max-height: min(90vh, 720px);
   padding: 24px;
   border: 0;
   border-radius: 16px;
@@ -413,49 +310,125 @@ body {
   font-size: 22px;
 }
 
+#productDetail {
+  display: grid;
+  gap: 12px;
+}
+
+#productDetail label {
+  font-weight: 700;
+}
+
+#productDetail input,
+#productDetail select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #1f2937;
+}
+
 #productDetail button {
+  min-height: 42px;
   padding: 10px 14px;
   border: 0;
   border-radius: 8px;
-  font: inherit;
   font-weight: 700;
-  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 #saveProductButton {
+  margin-top: 8px;
   background: #2563eb;
   color: #fff;
 }
 
-#saveProductButton:hover,
-#saveProductButton:focus-visible {
+#saveProductButton:hover {
   background: #1d4ed8;
 }
 
 #closeDialog {
-  border: 1px solid #cbd5e1;
+  border: 1px solid #cbd5e1 !important;
   background: #fff;
   color: #334155;
 }
 
-#closeDialog:hover,
-#closeDialog:focus-visible {
+#closeDialog:hover {
   background: #f1f5f9;
 }
 
-.product-card button {
-  padding: 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #fff;
-  color: #334155;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
+/* Responsive layout */
+@media (max-width: 900px) {
+  .product {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
 }
 
-.product-card button:hover,
-.product-card button:focus-visible {
-  border-color: #2563eb;
-  color: #2563eb;
+@media (max-width: 520px) {
+  body {
+    padding: 12px 16px;
+  }
+
+  .header {
+    padding-top: 12px;
+  }
+
+  .header-top {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .logo {
+    gap: 7px;
+    font-size: clamp(20px, 6vw, 28px);
+  }
+
+  .logo__mark {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    border-radius: 11px;
+    font-size: 22px;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .btn-login,
+  .btn-cart,
+  .btn-add {
+    padding: 8px 9px;
+    font-size: 13px;
+  }
+
+  .nav {
+    overflow-x: auto;
+  }
+
+  .nav-list {
+    justify-content: flex-start;
+    width: max-content;
+    min-width: 100%;
+    gap: 14px;
+  }
+
+  .nav-list li {
+    gap: 14px;
+  }
+
+  .product {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  #productDialog {
+    padding: 20px;
+  }
 }

@@ -21,6 +21,7 @@ const saveProductButton = document.querySelector("#saveProductButton");
 const products = [];
 let nextProductId = 1;
 let editingProductId = null;
+let deletingProductId = null;
 let currentCategory = "all";
 
 // Open a blank form for a new product.
@@ -51,39 +52,66 @@ function openEditDialog(productId) {
   dialog.showModal();
 }
 
+function openDeleteDialog(productId) {
+  const product = products.find((item) => item.id === productId);
+  if (!product) return;
+
+  editingProductId = null;
+  deletingProductId = productId;
+
+  productForm.elements.productName.value = product.name;
+  productForm.elements.productPrice.value = product.price;
+  productForm.elements.productProperty.value = product.property;
+  dialogTitle.textContent = "商品の削除";
+  saveProductButton.textContent = "削除";
+  dialog.showModal();
+}
+
 // Add a product or update the product currently being edited.
 productForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const formData = new FormData(productForm);
-  const name = formData.get("productName").trim();
-  const price = Number(formData.get("productPrice"));
-  const property = formData.get("productProperty");
-  if (!name || price < 0 || !property) return;
-
-  if (editingProductId !== null) {
-    const product = products.find((item) => item.id === editingProductId);
-    if (!product) return;
-    product.name = name;
-    product.price = price;
-    product.property = property;
+  // 削除
+  if (deletingProductId !== null) {
+    const index = products.findIndex((item) => item.id === deletingProductId);
+    if (index !== -1) products.splice(index, 1);
   } else {
-    products.push({ id: nextProductId, name, price, property });
-    nextProductId += 1;
+    const formData = new FormData(productForm);
+    const name = formData.get("productName").trim();
+    const price = Number(formData.get("productPrice"));
+    const property = formData.get("productProperty");
+
+    if (!name || price < 0 || !property) return;
+
+    // 編集
+    if (editingProductId !== null) {
+      const product = products.find((item) => item.id === editingProductId);
+      if (!product) return;
+
+      product.name = name;
+      product.price = price;
+      product.property = property;
+    } else {
+      // 追加
+      products.push({ id: nextProductId, name, price, property });
+      nextProductId += 1;
+    }
   }
 
   renderProducts();
   productForm.reset();
   editingProductId = null;
+  deletingProductId = null;
   dialog.close();
 });
 
 // Render only products that match the selected navigation category.
 function renderProducts() {
   productList.replaceChildren();
-  const visibleProducts = currentCategory === "all"
-    ? products
-    : products.filter((product) => product.property === currentCategory);
+  const visibleProducts =
+    currentCategory === "all"
+      ? products
+      : products.filter((product) => product.property === currentCategory);
 
   visibleProducts.forEach((product) => {
     const card = document.createElement("article");
@@ -106,7 +134,12 @@ function renderProducts() {
     edit.textContent = "編集";
     edit.addEventListener("click", () => openEditDialog(product.id));
 
-    card.append(name, price, detail, edit);
+    const del = document.createElement("button");
+    del.type = "button";
+    del.textContent = "削除";
+    del.addEventListener("click", () => openDeleteDialog(product.id));
+
+    card.append(name, price, detail, edit, del);
     productList.append(card);
   });
 }
